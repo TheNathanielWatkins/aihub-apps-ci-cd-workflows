@@ -16,5 +16,5 @@
         "rebuild": true
     },
     "regression": {},
-    "release_notes": "This is a test release note in the config.json file."
+    "release_notes": "v0.0.3"
 }
