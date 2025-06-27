@@ -10,11 +10,11 @@
     "target": {
         "org": "ib-internal",
         "workspace": "SolEng_workspace",
-        "project_id": ""
+        "project_id": "0197b06d-bb78-7ccc-96a4-9a1278ffe74f"
     },
     "settings": {
         "rebuild": true
     },
     "regression": {},
-    "release_notes": "This is a test release note in the config.json file."
+    "release_notes": "v0.0.4"
 }
