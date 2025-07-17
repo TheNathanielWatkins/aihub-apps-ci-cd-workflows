@@ -1,0 +1,209 @@
+{
+    "204268": {
+        "description": "",
+        "fields": {},
+        "name": "Other"
+    },
+    "204269": {
+        "description": "",
+        "fields": {
+            "662477": {
+                "data_type": "TEXT",
+                "description": "You are an intelligent document parser specialised in analysing U.S. bank account statements.\n\nTask: Extract the Bank Name.\n\nGuidelines:\n- The bank name typically appears at the top of the document, in the header, or near account holder details.\n- It may also appear in footers, contact sections, or alongside branding elements such as slogans or website URLs.\n- Common indicators include:\n  - Standalone lines in uppercase (e.g., TRUIST, BANK OF AMERICA)\n  - Lines near customer support info, or bank logos\n  - Phrases like \"Contact [Bank Name]\", \"[Bank Name].com\", or \"Visit [Bank Name] online\"\n\nOutput format: <Extracted bank name or \"N/A\">\n\nReturn \"N/A\" if the bank name is not found.",
+                "lines": [],
+                "model_type": "DEFAULT",
+                "name": "Bank Name",
+                "position": 0,
+                "prompt": "Bank Name",
+                "prompt_schema": null,
+                "prompt_type": "basic"
+            },
+            "662479": {
+                "data_type": "TEXT",
+                "description": "You are an intelligent document parser specialised in analysing U.S. bank account statements.\n\nTask: Extract the Account Holder's Address.\n\nGuidelines:\n- The address typically appears near the account holder's name, usually at the top or top-left section of the statement.\n- It may span multiple lines and include components such as:\n  - House or Apartment\n  - Street address\n  - City\n  - State abbreviation\n  - ZIP code\n- The address may or may not have a label, but is often grouped with the name or appears above the account summary section.\n- Ignore any addresses belonging to the bank, branches, or service centres.\n\nOutput format: <Extracted address or \"N/A\">\n\nReturn \"N/A\" if the address is not found.",
+                "lines": [],
+                "model_type": "DEFAULT",
+                "name": "Account Holder Address",
+                "position": 7,
+                "prompt": "You are an intelligent document parser specialised in analysing U.S. bank account statements.\n\nTask: Extract the Account Holder's Address.\n\nGuidelines:\n- The address typically appears near the account holder's name, usually at the top or top-left section of the statement.\n- It may span multiple lines and include components such as:\n  - House or Apartment\n  - Street address\n  - City\n  - State abbreviation\n  - ZIP code\n- The address may or may not have a label, but is often grouped with the name or appears above the account summary section.\n- Ignore any addresses belonging to the bank, branches, or service centres.\n- Replace newline with a comma\n\nOutput format: <Extracted address or \"N/A\">\n\nReturn \"N/A\" if the address is not found.",
+                "prompt_schema": null,
+                "prompt_type": "advanced"
+            },
+            "662480": {
+                "data_type": "TEXT",
+                "description": "",
+                "lines": [
+                    {
+                        "function_args": [
+                            {
+                                "data_type": "FIELD",
+                                "name": "Statement_Dates",
+                                "value": "Statement Dates"
+                            }
+                        ],
+                        "function_id": null,
+                        "line_type": "PROMPT",
+                        "native_fn_name": null,
+                        "prompt": "Extract the Statement Start Date from \\ Statement Dates \\"
+                    }
+                ],
+                "model_type": "DEFAULT",
+                "name": "Statement Start Date",
+                "position": 2,
+                "prompt": "",
+                "prompt_schema": null,
+                "prompt_type": "derived"
+            },
+            "662481": {
+                "data_type": "TEXT",
+                "description": "",
+                "lines": [
+                    {
+                        "function_args": [
+                            {
+                                "data_type": "FIELD",
+                                "name": "Statement_Dates",
+                                "value": "Statement Dates"
+                            }
+                        ],
+                        "function_id": null,
+                        "line_type": "PROMPT",
+                        "native_fn_name": null,
+                        "prompt": "Extract the Statement End Date from \\ Statement Dates \\"
+                    }
+                ],
+                "model_type": "DEFAULT",
+                "name": "Statement End Date",
+                "position": 3,
+                "prompt": "",
+                "prompt_schema": null,
+                "prompt_type": "derived"
+            },
+            "662483": {
+                "data_type": "TEXT",
+                "description": "Extract transaction data from the provided bank statements and present it in a structured table format.\n\nInstructions:\n\n1. Identify and extract all transaction tables within the bank statement content.\n\n2. For each transaction, extract the following data points and present them as columns in your table:\n   - Fee Type\n   - Date\n   - Description\n   - Transaction Type (e.g., Debit, Credit, Withdrawal, Deposit, Payment, Transfer)\n   - Amount\n   - Balance\n   - Account Number (N/A if not determinable)\n   - Page Number (N/A if not determinable)\n\n3. Scan headers, footers, and section titles for account numbers. Assume an extracted account number applies to all subsequent transactions until a new account number is identified or a new account section begins.\n\n4. Identify page numbers from headers or footers and correlate transactions with the respective page number.",
+                "lines": [
+                    {
+                        "function_args": [],
+                        "function_id": null,
+                        "line_type": "PROMPT",
+                        "native_fn_name": null,
+                        "prompt": "Ensure each piece of extracted data is correctly correlated with its respective transaction. Insert \"N/A\" for any data that cannot be extracted or confidently correlated.\n\nPresent the extracted data as a JSON array of objects, with each object representing a single transaction and keys corresponding to the required column names."
+                    },
+                    {
+                        "function_args": [
+                            {
+                                "data_type": "LINE",
+                                "name": "previous_line",
+                                "value": "Transaction Table@1"
+                            },
+                            {
+                                "data_type": "FIELD",
+                                "name": "Accounts_Details",
+                                "value": "Accounts Details"
+                            }
+                        ],
+                        "function_id": 10963,
+                        "line_type": "UDF",
+                        "native_fn_name": null,
+                        "prompt": null
+                    }
+                ],
+                "model_type": "ADVANCED",
+                "name": "Transaction Table",
+                "position": 9,
+                "prompt": "Extract transaction data from the provided bank statements and present it in a structured table format.\n\nInstructions:\n\n1. Identify and extract all transaction tables within the bank statement content.\n\n2. For each transaction, extract the following data points and present them as columns in your table:\n   - Fee Type\n   - Date\n   - Description\n   - Transaction Type (e.g., Debit, Credit, Withdrawal, Deposit, Payment, Transfer)\n   - Amount\n   - Balance\n   - Account Number (N/A if not determinable)\n   - Page Number (N/A if not determinable)\n\n3. Scan headers, footers, and section titles for account numbers. Assume an extracted account number applies to all subsequent transactions until a new account number is identified or a new account section begins.\n\n4. Identify page numbers from headers or footers and correlate transactions with the respective page number.",
+                "prompt_schema": null,
+                "prompt_type": "advanced"
+            },
+            "662485": {
+                "data_type": "TEXT",
+                "description": "Return the currency used in this document. \nReturn only currency no additional text.",
+                "lines": [
+                    {
+                        "function_args": [],
+                        "function_id": null,
+                        "line_type": "PROMPT",
+                        "native_fn_name": null,
+                        "prompt": "Replace '$' or 'Dollars' with 'USD'.\nReplace '\u00a3' or 'Pounds' with 'GBP'.\nReplace '\u20ac' or 'Euros' with 'EUR'.\nReplace '\u00a5' or 'Yen' with 'JPY'."
+                    }
+                ],
+                "model_type": "ADVANCED",
+                "name": "Currency",
+                "position": 8,
+                "prompt": "Return the currency used in this document. \nReturn only currency no additional text.",
+                "prompt_schema": null,
+                "prompt_type": "advanced"
+            },
+            "662508": {
+                "data_type": "TEXT",
+                "description": "",
+                "lines": [
+                    {
+                        "function_args": [
+                            {
+                                "data_type": "FIELD",
+                                "name": "Statement_Dates",
+                                "value": "Statement Dates"
+                            }
+                        ],
+                        "function_id": null,
+                        "line_type": "PROMPT",
+                        "native_fn_name": null,
+                        "prompt": "Extract the Statement Issue Date from \\ Statement Dates \\"
+                    }
+                ],
+                "model_type": "DEFAULT",
+                "name": "Statement Issue Date",
+                "position": 4,
+                "prompt": "",
+                "prompt_schema": null,
+                "prompt_type": "derived"
+            },
+            "662509": {
+                "data_type": "TEXT",
+                "description": "You are an intelligent document parser specialised in analysing U.S. bank account statements.\n\nTask: Extract the Account Member Number (also referred to as Client ID or Member ID).\n\nGuidelines:\n- The member number is a unique identifier assigned to the account holder and is **not** the same as the account number.\n- It may appear near the customer name, mailing address, or at the top of the statement.\n- Look for labels such as:\n  - \"Member Number\", \"Member ID\", \"Client ID\", \"Customer ID\", or \"Client Number\"\n- Avoid extracting values labeled as \"Account Number\", \"Routing Number\", or any transaction-specific numbers.\n- The member number may be numeric or alphanumeric and often appears in a smaller font or near the customer service section.\n\nOutput format: <Extracted member number or \"N/A\">\n\nReturn \"N/A\" if the member number is not found.",
+                "lines": [],
+                "model_type": "DEFAULT",
+                "name": "Member Number",
+                "position": 6,
+                "prompt": "You are an intelligent document parser specialised in analysing U.S. bank account statements.\n\nTask: Extract the Account Member Number (also referred to as Client ID or Member ID).\n\nGuidelines:\n- The member number is a unique identifier assigned to the account holder and is **not** the same as the account number.\n- It may appear near the customer name, mailing address, or at the top of the statement.\n- Look for labels such as:\n  - \"Member Number\", \"Member ID\", \"Client ID\", \"Customer ID\", or \"Client Number\"\n- Avoid extracting values labelled as \"Account Number\", \"Routing Number\", or any transaction-specific numbers.\n- The member number may be numeric or alphanumeric and often appears in a smaller font or near the customer service section.\n\nOutput format: <Extracted member number or \"N/A\">\n\nReturn \"N/A\" if the member number is not found.",
+                "prompt_schema": null,
+                "prompt_type": "advanced"
+            },
+            "665287": {
+                "data_type": "TEXT",
+                "description": "You are an intelligent document parser specialised in analysing U.S. bank account statements.\n\nTask: Extract the \"Statement Start Date\", \"Statement End Date\", and \"Statement Issue Date\".\n\nGuidelines:\n- For **Start Date** and **End Date**:\n  - Look for a date range indicating the statement period (e.g., \"For (start date) to (end date)\", \"Statement period: (start date) - (end date)\", \"From (start date) through (end date)\").\n  - If a full range is not available, infer dates from:\n    - Earliest and latest transaction dates\n    - Phrases like:\n      - \"Previous balance as of [date]\" (start date)\n      - \"Your new balance as of [date]\" or \"Ending balance as of [date]\" (end date)\n\n- For **Issue Date**:\n  - Look for a single date printed at the top or near the title of the statement, often without labels.\n  - It may also appear near phrases like:\n    - \"Statement date\", \"Issued on\", or just as a standalone date near the account or customer information.\n\nOutput format:\n\"\"\"\nStart date: start date\nEnd date: end date\nIssue date: issue date\n\"\"\"\n\nReturn \"N/A\" for any field if the corresponding date is not found.",
+                "lines": [],
+                "model_type": "DEFAULT",
+                "name": "Statement Dates",
+                "position": 1,
+                "prompt": "You are an intelligent document parser specialised in analysing U.S. bank account statements.\n\nTask: Extract the \"Statement Start Date\", \"Statement End Date\", and \"Statement Issue Date\".\n\nGuidelines:\n- For **Start Date** and **End Date**:\n  - Look for a date range indicating the statement period (e.g., \"For (start date) to (end date)\", \"Statement period: (start date) - (end date)\", \"From (start date) through (end date)\").\n  - If a full range is not available, infer dates from:\n    - Earliest and latest transaction dates\n    - Phrases like:\n      - \"Previous balance as of [date]\" (start date)\n      - \"Your new balance as of [date]\" or \"Ending balance as of [date]\" (end date)\n\n- For **Issue Date**:\n  - Look for a single date printed at the top or near the title of the statement, often without labels.\n  - It may also appear near phrases like:\n    - \"Statement date\", \"Issued on\", or just as a standalone date near the account or customer information.\n\nOutput format:\n\"\"\"\nStart date: start date\nEnd date: end date\nIssue date: issue date\n\"\"\"\n\nReturn \"N/A\" for any field if the corresponding date is not found.",
+                "prompt_schema": null,
+                "prompt_type": "advanced"
+            },
+            "666147": {
+                "data_type": "TEXT",
+                "description": "You are an intelligent document parser specialised in analysing U.S. bank account statements.\n\nTask: Extract all Account Numbers along with their respective Account Holders.\n\nGuidelines:\n- Look for sections such as \"Account Summary\", \"Account Details\", or \"Summary of Your Accounts\".\n- Each entry typically includes:\n  - The account holder\u2019s name (individual or joint)\n  - The corresponding account number\n- Account numbers may be:\n  - Numeric (e.g., 5730956680)\n  - Alphanumeric or formatted with spaces or dashes (e.g., S122 4343466 01, 037-133 19-0123)\n- Account holder names may include one or more people and usually appear before or after the account number on the same line or in close proximity.\n- Ignore non-account-related numbers such as routing numbers or transaction IDs.\n\nOutput format:\nAccount holder(s): <Name>\nAccount number: <Account number>\n\nRepeat for each account found. If no valid pairs are found, return \"N/A\".",
+                "lines": [
+                    {
+                        "function_args": [],
+                        "function_id": null,
+                        "line_type": "PROMPT",
+                        "native_fn_name": null,
+                        "prompt": "Convert the data into a table as a list of lists with the following fixed header:\n[\"Account Number\", \"Account Type\", \"Account Holder 1\", \"Account Holder 2\", \"Account Holder 3\", \"Account Holder 4\", \"Opening Balance\", \"Closing Balance\", \"Total Credits\", \"Total Debits\"]\n\nEach row in the table should represent one account and its associated account holders (In Title Case).\nIf fewer than four names are present, leave the remaining fields empty.\nIf no valid data is found, return an empty list.\n\nAlways include the header row in the list."
+                    }
+                ],
+                "model_type": "DEFAULT",
+                "name": "Accounts Details",
+                "position": 5,
+                "prompt": "You are an intelligent document parser specialised in analysing U.S. bank account statements.\n\nTask: Extract all Account Numbers along with their corresponding Account Holder Names, Accout Type (Savings, Checking, etc.), Opening and Closing Balance, Total Credits and Debits. \n\nGuidelines:\n- A single statement may contain multiple accounts, such as individual and joint accounts.\n- For each account listed, extract:\n  - The full name(s) of the account holder(s)\n  - The corresponding account number\n- These typically appear in sections like \"Account Summary\", \"Summary of Your Accounts\", or \"Account Details\".\n- Account numbers may be:\n  - Numeric (e.g., 5730956680)\n  - Alphanumeric (e.g., S122 4343466 01)\n  - Formatted with spaces or dashes (e.g., 037-133 19-0123)\n- Account holder names may appear:\n  - Directly before or after the account number\n  - On the same or adjacent line, and may include multiple names (e.g., John Doe and Jane Doe)\n- Ignore non-account numbers such as routing numbers, transaction IDs, or check numbers.",
+                "prompt_schema": null,
+                "prompt_type": "advanced"
+            }
+        },
+        "name": "Bank Statement"
+    },
+    "last_edited_at": "1752567376000",
+    "last_edited_class_at": "1751623049000"
+}
