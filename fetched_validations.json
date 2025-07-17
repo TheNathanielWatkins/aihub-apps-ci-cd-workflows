@@ -1,0 +1,119 @@
+{
+    "last_updated": 1751623050000,
+    "rules": [
+        {
+            "affected_fields": [
+                662483
+            ],
+            "alert_level": "FAILURE",
+            "created_at": 1751623050000,
+            "description": "",
+            "id": 11878,
+            "input_fields": [
+                662483
+            ],
+            "name": "Rule 13",
+            "params": {
+                "confidence_threshold": 0.7
+            },
+            "scope": "FIELD",
+            "type": "CONFIDENCE",
+            "updated_at": 1751623050000
+        },
+        {
+            "affected_fields": [
+                662477
+            ],
+            "alert_level": "FAILURE",
+            "created_at": 1751623050000,
+            "description": "",
+            "id": 11879,
+            "input_fields": [
+                662477
+            ],
+            "name": "Rule 2",
+            "params": {
+                "confidence_threshold": 0.8
+            },
+            "scope": "FIELD",
+            "type": "CONFIDENCE",
+            "updated_at": 1751623050000
+        },
+        {
+            "affected_fields": [
+                662479
+            ],
+            "alert_level": "FAILURE",
+            "created_at": 1751623050000,
+            "description": "",
+            "id": 11881,
+            "input_fields": [
+                662479
+            ],
+            "name": "Rule 4",
+            "params": {
+                "confidence_threshold": 0.7
+            },
+            "scope": "FIELD",
+            "type": "CONFIDENCE",
+            "updated_at": 1751623050000
+        },
+        {
+            "affected_fields": [
+                662480
+            ],
+            "alert_level": "FAILURE",
+            "created_at": 1751623050000,
+            "description": "",
+            "id": 11883,
+            "input_fields": [
+                662480
+            ],
+            "name": "Rule 6",
+            "params": {
+                "confidence_threshold": 0.9
+            },
+            "scope": "FIELD",
+            "type": "CONFIDENCE",
+            "updated_at": 1751623050000
+        },
+        {
+            "affected_fields": [
+                662481
+            ],
+            "alert_level": "FAILURE",
+            "created_at": 1751623050000,
+            "description": "",
+            "id": 11884,
+            "input_fields": [
+                662481
+            ],
+            "name": "Rule 7",
+            "params": {
+                "confidence_threshold": 0.9
+            },
+            "scope": "FIELD",
+            "type": "CONFIDENCE",
+            "updated_at": 1751623050000
+        },
+        {
+            "affected_fields": [
+                662485
+            ],
+            "alert_level": "FAILURE",
+            "created_at": 1751623050000,
+            "description": "",
+            "id": 11885,
+            "input_fields": [
+                662485
+            ],
+            "name": "Rule 8",
+            "params": {
+                "confidence_threshold": 0.8
+            },
+            "scope": "FIELD",
+            "type": "CONFIDENCE",
+            "updated_at": 1751623050000
+        }
+    ]
+}

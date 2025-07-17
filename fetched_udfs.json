@@ -1,0 +1,233 @@
+{
+    "10900": {
+        "args": [
+            {
+                "data_type": "LINE",
+                "name": "previous_line",
+                "value": "Account Holder Name@0"
+            }
+        ],
+        "code": "\timport json\n\timport re\n\tfrom collections import OrderedDict\n\t\n\tlists = json.loads(previous_line)\n\t\n\tflattened_list = []\n\tfor item in lists:\n\t    if not item:  \n\t        continue\n\t    split_items = re.split(r'[\\n,]', item)\n\t    for split_item in split_items:\n\t        cleaned_item = split_item.strip()\n\t        cleaned_item = re.sub(r'\\s+', ' ', cleaned_item)  # Replace multiple spaces with a single space\n\t        if cleaned_item:\n\t            flattened_list.append(cleaned_item)\n\t\n\tunique_list = list(OrderedDict.fromkeys(flattened_list))\n\t\n\tif not unique_list:\n\t    result = json.dumps([''])\n\telse:\n\t    result = json.dumps(unique_list)\n\t\n\treturn result\n\t",
+        "docstring": null,
+        "lambda_end_of_life": null,
+        "lambda_id": "11",
+        "lambda_udf_id": "v1:AWS_LAMBDA:8407381982:insaprd-use2-aihub-prd-docker-default-udf:10",
+        "last_updated_at": "1751967052000",
+        "name": "remove_duplicates",
+        "udf_type": "REFINER"
+    },
+    "10901": {
+        "args": [
+            {
+                "data_type": "LINE",
+                "name": "previous_line",
+                "value": "Account Number@1"
+            }
+        ],
+        "code": "\timport json\n\tfrom collections import OrderedDict\n\t\n\tlists = json.loads(previous_line)\n\tlists = list(OrderedDict.fromkeys(lists))\n\t\n\tresult = json.dumps(lists)\n\treturn result\n\t",
+        "docstring": null,
+        "lambda_end_of_life": null,
+        "lambda_id": "11",
+        "lambda_udf_id": "v1:AWS_LAMBDA:1327087136:insaprd-use2-aihub-prd-docker-default-udf:10",
+        "last_updated_at": "1751623046000",
+        "name": "remove_duplicates",
+        "udf_type": "REFINER"
+    },
+    "10902": {
+        "args": [
+            {
+                "data_type": "LINE",
+                "name": "previous_line",
+                "value": "Opening Balance@0"
+            }
+        ],
+        "code": "\timport json\n\timport re\n\t\n\tdef to_proper_float(value):\n\t  print(value, type(value))\n\t  if value.count('.') > 1:\n\t      parts = value.split('.')\n\t      value = ''.join(parts[:-1]) + '.' + parts[-1]\n\t  return value\n\t\n\tdef clean_list_values(json_list):\n\t    cleaned_list = []\n\t    for item in json_list:\n\t        if isinstance(item, str):\n\t            cleaned_item = re.sub(r'[^0-9\\.]', '', item)\n\t            \n\t            if cleaned_item.count('.') > 1:\n\t                parts = cleaned_item.split('.')\n\t                if len(parts) > 1:\n\t                    parts = cleaned_item.split('.')\n\t                    cleaned_item = ''.join(parts[:-1]) + '.' + parts[-1]\n\t                else:\n\t                    cleaned_item = ''.join(parts)\n\t        \n\t            if cleaned_item:  \n\t              cleaned_item = \"{:.2f}\".format(float(cleaned_item))\n\t            \n\t            cleaned_list.append(cleaned_item)\n\t        else:\n\t            cleaned_list.append(item)\n\t    return cleaned_list\n\t\n\tjson_list = json.loads(previous_line)\n\t\n\tcleaned_list = clean_list_values(json_list)\n\tcleaned_json_list = json.dumps(cleaned_list)\n\t\n\treturn cleaned_json_list\n\t",
+        "docstring": null,
+        "lambda_end_of_life": null,
+        "lambda_id": "11",
+        "lambda_udf_id": "v1:AWS_LAMBDA:4299112029:insaprd-use2-aihub-prd-docker-default-udf:10",
+        "last_updated_at": "1751623047000",
+        "name": "clean_values",
+        "udf_type": "REFINER"
+    },
+    "10903": {
+        "args": [
+            {
+                "data_type": "LINE",
+                "name": "previous_line",
+                "value": "Opening Balance@1"
+            }
+        ],
+        "code": "\timport json\n\tfrom collections import OrderedDict\n\t\n\tlists = json.loads(previous_line)\n\tlists = list(OrderedDict.fromkeys(lists))\n\t\n\tresult = json.dumps(lists)\n\treturn result\n\t",
+        "docstring": null,
+        "lambda_end_of_life": null,
+        "lambda_id": "11",
+        "lambda_udf_id": "v1:AWS_LAMBDA:2749214809:insaprd-use2-aihub-prd-docker-default-udf:10",
+        "last_updated_at": "1751623047000",
+        "name": "remove_duplicates",
+        "udf_type": "REFINER"
+    },
+    "10904": {
+        "args": [
+            {
+                "data_type": "LINE",
+                "name": "previous_line",
+                "value": "Closing Balance@0"
+            }
+        ],
+        "code": "\timport json\n\timport re\n\t\n\tdef to_proper_float(value):\n\t  print(value, type(value))\n\t  if value.count('.') > 1:\n\t      parts = value.split('.')\n\t      value = ''.join(parts[:-1]) + '.' + parts[-1]\n\t  return value\n\t\n\tdef clean_list_values(json_list):\n\t    cleaned_list = []\n\t    for item in json_list:\n\t        if isinstance(item, str):\n\t            cleaned_item = re.sub(r'[^0-9\\.]', '', item)\n\t            \n\t            if cleaned_item.count('.') > 1:\n\t                parts = cleaned_item.split('.')\n\t                if len(parts) > 1:\n\t                    parts = cleaned_item.split('.')\n\t                    cleaned_item = ''.join(parts[:-1]) + '.' + parts[-1]\n\t                else:\n\t                    cleaned_item = ''.join(parts)\n\t        \n\t            if cleaned_item:  \n\t              cleaned_item = \"{:.2f}\".format(float(cleaned_item))\n\t            \n\t            cleaned_list.append(cleaned_item)\n\t        else:\n\t            cleaned_list.append(item)\n\t    return cleaned_list\n\t\n\tjson_list = json.loads(previous_line)\n\t\n\tcleaned_list = clean_list_values(json_list)\n\tcleaned_json_list = json.dumps(cleaned_list)\n\t\n\treturn cleaned_json_list\n\t",
+        "docstring": null,
+        "lambda_end_of_life": null,
+        "lambda_id": "11",
+        "lambda_udf_id": "v1:AWS_LAMBDA:2615013311:insaprd-use2-aihub-prd-docker-default-udf:10",
+        "last_updated_at": "1751623047000",
+        "name": "clean_values",
+        "udf_type": "REFINER"
+    },
+    "10905": {
+        "args": [
+            {
+                "data_type": "LINE",
+                "name": "previous_line",
+                "value": "Closing Balance@1"
+            }
+        ],
+        "code": "\timport json\n\tfrom collections import OrderedDict\n\t\n\tlists = json.loads(previous_line)\n\tlists = list(OrderedDict.fromkeys(lists))\n\t\n\tresult = json.dumps(lists)\n\treturn result\n\t",
+        "docstring": null,
+        "lambda_end_of_life": null,
+        "lambda_id": "11",
+        "lambda_udf_id": "v1:AWS_LAMBDA:2095391136:insaprd-use2-aihub-prd-docker-default-udf:10",
+        "last_updated_at": "1751623048000",
+        "name": "remove_duplicates",
+        "udf_type": "REFINER"
+    },
+    "10906": {
+        "args": [
+            {
+                "data_type": "LINE",
+                "name": "previous_line",
+                "value": "Total Debit@0"
+            }
+        ],
+        "code": "\timport json\n\timport re\n\t\n\tdef to_proper_float(value):\n\t  print(value, type(value))\n\t  if value.count('.') > 1:\n\t      parts = value.split('.')\n\t      value = ''.join(parts[:-1]) + '.' + parts[-1]\n\t  return value\n\t\n\tdef clean_list_values(json_list):\n\t    cleaned_list = []\n\t    for item in json_list:\n\t        if isinstance(item, str):\n\t            cleaned_item = re.sub(r'[^0-9\\.]', '', item)\n\t            \n\t            if cleaned_item:  \n\t              cleaned_item = \"{:.2f}\".format(float(cleaned_item))\n\t            \n\t            cleaned_list.append(cleaned_item)\n\t        else:\n\t            cleaned_list.append(item)\n\t    return cleaned_list\n\t\n\tjson_list = json.loads(previous_line)\n\t\n\tcleaned_list = clean_list_values(json_list)\n\tcleaned_json_list = json.dumps(cleaned_list)\n\t\n\treturn cleaned_json_list\n\t",
+        "docstring": null,
+        "lambda_end_of_life": null,
+        "lambda_id": "11",
+        "lambda_udf_id": "v1:AWS_LAMBDA:2189007328:insaprd-use2-aihub-prd-docker-default-udf:10",
+        "last_updated_at": "1751623048000",
+        "name": "clean_values",
+        "udf_type": "REFINER"
+    },
+    "10907": {
+        "args": [
+            {
+                "data_type": "LINE",
+                "name": "previous_line",
+                "value": "Total Debit@1"
+            }
+        ],
+        "code": "\timport json\n\tfrom collections import OrderedDict\n\t\n\tlists = json.loads(previous_line)\n\tlists = list(OrderedDict.fromkeys(lists))\n\t\n\tresult = json.dumps(lists)\n\treturn result\n\t",
+        "docstring": null,
+        "lambda_end_of_life": null,
+        "lambda_id": "11",
+        "lambda_udf_id": "v1:AWS_LAMBDA:1360199516:insaprd-use2-aihub-prd-docker-default-udf:10",
+        "last_updated_at": "1751623048000",
+        "name": "remove_duplicates",
+        "udf_type": "REFINER"
+    },
+    "10908": {
+        "args": [
+            {
+                "data_type": "LINE",
+                "name": "previous_line",
+                "value": "Total Credit@0"
+            }
+        ],
+        "code": "\timport json\n\timport re\n\t\n\tdef to_proper_float(value):\n\t  print(value, type(value))\n\t  if value.count('.') > 1:\n\t      parts = value.split('.')\n\t      value = ''.join(parts[:-1]) + '.' + parts[-1]\n\t  return value\n\t\n\tdef clean_list_values(json_list):\n\t    cleaned_list = []\n\t    for item in json_list:\n\t        if isinstance(item, str):\n\t            cleaned_item = re.sub(r'[^0-9\\.]', '', item)\n\t            \n\t            if cleaned_item:  \n\t              cleaned_item = \"{:.2f}\".format(float(cleaned_item))\n\t            \n\t            cleaned_list.append(cleaned_item)\n\t        else:\n\t            cleaned_list.append(item)\n\t    return cleaned_list\n\t\n\tjson_list = json.loads(previous_line)\n\t\n\tcleaned_list = clean_list_values(json_list)\n\tcleaned_json_list = json.dumps(cleaned_list)\n\t\n\treturn cleaned_json_list\n\t",
+        "docstring": null,
+        "lambda_end_of_life": null,
+        "lambda_id": "11",
+        "lambda_udf_id": "v1:AWS_LAMBDA:2353453209:insaprd-use2-aihub-prd-docker-default-udf:10",
+        "last_updated_at": "1751623049000",
+        "name": "clean_values",
+        "udf_type": "REFINER"
+    },
+    "10909": {
+        "args": [
+            {
+                "data_type": "LINE",
+                "name": "previous_line",
+                "value": "Total Credit@1"
+            }
+        ],
+        "code": "\timport json\n\tfrom collections import OrderedDict\n\t\n\tlists = json.loads(previous_line)\n\tlists = list(OrderedDict.fromkeys(lists))\n\t\n\tresult = json.dumps(lists)\n\treturn result\n\t",
+        "docstring": null,
+        "lambda_end_of_life": null,
+        "lambda_id": "11",
+        "lambda_udf_id": "v1:AWS_LAMBDA:2773160407:insaprd-use2-aihub-prd-docker-default-udf:10",
+        "last_updated_at": "1751623049000",
+        "name": "remove_duplicates",
+        "udf_type": "REFINER"
+    },
+    "10944": {
+        "args": [
+            {
+                "data_type": "LINE",
+                "name": "previous_line",
+                "value": "Account Holder Address@0"
+            }
+        ],
+        "code": "\timport re\n\t\n\taddress = previous_line.replace('\\n', ', ')\n\taddress = re.sub(r'\\s+', ' ', address)\n\t\n\treturn address",
+        "docstring": null,
+        "lambda_end_of_life": null,
+        "lambda_id": "12",
+        "lambda_udf_id": "v1:AWS_LAMBDA:1806328260:insaprd-use2-aihub-prd-docker-default-udf:11",
+        "last_updated_at": "1752037348000",
+        "name": "clean_address",
+        "udf_type": "REFINER"
+    },
+    "10962": {
+        "args": [
+            {
+                "data_type": "FIELD",
+                "name": "Accounts_Details",
+                "value": "Accounts Details"
+            },
+            {
+                "data_type": "FIELD",
+                "name": "Transaction_Table",
+                "value": "Transaction Table"
+            }
+        ],
+        "code": "\tresult = f\"\"\"\n\tAccounts: {Accounts_Details}\n\t\n\tTransactions: {Transaction_Table}\n\t\"\"\"\n\t\n\treturn result",
+        "docstring": null,
+        "lambda_end_of_life": null,
+        "lambda_id": "12",
+        "lambda_udf_id": "v1:AWS_LAMBDA:8345881452:insaprd-use2-aihub-prd-docker-default-udf:11",
+        "last_updated_at": "1752132788000",
+        "name": "merge_details",
+        "udf_type": "REFINER"
+    },
+    "10963": {
+        "args": [
+            {
+                "data_type": "LINE",
+                "name": "previous_line",
+                "value": "Transaction Table@1"
+            },
+            {
+                "data_type": "FIELD",
+                "name": "Accounts_Details",
+                "value": "Accounts Details"
+            }
+        ],
+        "code": "\timport json\n\timport traceback as tb\n\timport pandas as pd\n\t\n\ttry:\n\t  if not isinstance(Accounts_Details, list):\n\t    Accounts_Details = json.loads(Accounts_Details)\n\t  Accounts_Details = Accounts_Details[1:]   # Skip header row\n\t  account_numbers = list(map(lambda x: x[0], Accounts_Details))\n\t  print(f\"account_numbers: {account_numbers}\")\n\t\n\t  if len(account_numbers) <= 0:\n\t    print(\"No account numbers found\")\n\t    return previous_line\n\t\n\t  if not isinstance(previous_line, list):\n\t    previous_line = json.loads(previous_line)\n\t\n\t  if isinstance(previous_line[0], list):\n\t    # If table is a list of lists\n\t    print(\"Table is a list of lists\")\n\t    df = pd.DataFrame(previous_line[1:], columns=previous_line[0])\n\t  else:\n\t    # If table is a list of dicts\n\t    print(\"Table is a list of dicts\")\n\t    df = pd.DataFrame(previous_line)\n\t\n\t  if len(account_numbers) == 1:\n\t    print(\"Using the only account number\")\n\t    df['Account Number'] = account_numbers[0]\n\t  else:\n\t    print(\"Multiple account numbers found\")\n\t    # TODO: Determine Account Number\n\t\n\t  df.fillna('N/A', inplace=True)\n\t  return df.to_json(orient='records')\n\t\n\texcept Exception:\n\t  print(f\"Error: {tb.format_exc()}\")\n\t  return previous_line\n\t",
+        "docstring": null,
+        "lambda_end_of_life": null,
+        "lambda_id": "12",
+        "lambda_udf_id": "v1:AWS_LAMBDA:3541392487:insaprd-use2-aihub-prd-docker-default-udf:11",
+        "last_updated_at": "1752140381000",
+        "name": "add_account_number",
+        "udf_type": "REFINER"
+    }
+}
