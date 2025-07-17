@@ -4,7 +4,7 @@
         "project_id": "0197d4de-885e-7ce2-b8b8-c1de3d04cd84",
         "org": "ib-internal",
         "workspace": "SolEng_workspace",
-        "app_id": ""
+        "app_id": "713958a9-e02c-4946-99df-373fb7aafc52"
     },
     "target": {
         "org": "instabase-sandbox-org",
@@ -14,5 +14,5 @@
         "rebuild": true
     },
     "regression": {},
-    "release_notes": "v0.0.2 - Add blank app_id parameter"
+    "release_notes": "v0.0.3 - Migrating the app as well to keep the system happy."
 }
