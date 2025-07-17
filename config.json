@@ -3,7 +3,8 @@
         "is_advanced": false,
         "project_id": "0197d4de-885e-7ce2-b8b8-c1de3d04cd84",
         "org": "ib-internal",
-        "workspace": "SolEng_workspace"
+        "workspace": "SolEng_workspace",
+        "app_id": ""
     },
     "target": {
         "org": "instabase-sandbox-org",
@@ -13,5 +14,5 @@
         "rebuild": true
     },
     "regression": {},
-    "release_notes": "v0.0.1"
+    "release_notes": "v0.0.2 - Add blank app_id parameter"
 }
