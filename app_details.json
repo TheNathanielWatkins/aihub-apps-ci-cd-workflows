@@ -1,0 +1,25 @@
+{
+    "appReleaseVersion": "",
+    "author": "nathaniel.watkins.instabaseprod_instabase.com",
+    "contextAccount": "ib-internal",
+    "createdAtMs": "1752697962000",
+    "description": "Initial release",
+    "id": "713958a9-e02c-4946-99df-373fb7aafc52",
+    "isCustomizable": true,
+    "linkSharingMode": "OFF",
+    "metadata": "{\"authors\":[\"nathaniel.watkins.instabaseprod_instabase.com\"],\"billing_model\":\"default\",\"has_project_snapshot\":true,\"icon\":\"icon.png\",\"is_copy_of_existing_app\":false,\"org_context_type\":\"ENTERPRISE\",\"project_id\":\"0197d4de-885e-7ce2-b8b8-c1de3d04cd84\",\"results\":\"\",\"samples\":\"output/s1_process_files\",\"schema\":\"schema.json\"}",
+    "name": "Bank Statements (multi-account spec)",
+    "owner": "nathaniel.watkins.instabaseprod_instabase.com",
+    "ownerFullName": "Nathaniel Watkins",
+    "sharedAccounts": [
+        "ib-internal"
+    ],
+    "solutionType": "EXTRACTION",
+    "solution_path": "system/global/fs/Instabase Drive/Applications/Deployed/All/713958a9-e02c-4946-99df-373fb7aafc52",
+    "state": "PRODUCTION",
+    "summary": "Updating the Bank Statements app with the new requirements to handle multiple accounts listed on 1 statement.",
+    "updateMode": "AUTO_UPDATE",
+    "updatedAtMs": "1752697976000",
+    "version": "0.0.1",
+    "visibility": "PRIVATE"
+}
