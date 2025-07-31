@@ -1,18 +1,18 @@
 {
     "source": {
         "is_advanced": false,
-        "project_id": "0197d4de-885e-7ce2-b8b8-c1de3d04cd84",
-        "org": "ib-internal",
-        "workspace": "SolEng_workspace",
-        "app_id": "713958a9-e02c-4946-99df-373fb7aafc52"
+        "project_id": "0197ab11-a911-7bee-aa4b-a4f654114d08",
+        "org": "instabase-sandbox-org",
+        "workspace": "nathaniel.watkins.aihubsandbox_instabase.com",
+        "app_id": "9ecf70c7-16a6-417f-bff2-5da3f3b2981f"
     },
     "target": {
-        "org": "instabase-sandbox-org",
-        "workspace": "PS_Testing"
+        "org": "ib-internal",
+        "workspace": "SolEng_workspace"
     },
     "settings": {
         "rebuild": true
     },
     "regression": {},
-    "release_notes": "v0.0.3 - Migrating the app as well to keep the system happy."
+    "release_notes": "v0.0.1 - Test for logging purposes."
 }
