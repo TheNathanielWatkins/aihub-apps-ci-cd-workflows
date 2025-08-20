@@ -14,5 +14,5 @@
         "rebuild": true
     },
     "regression": {},
-    "release_notes": "v0.0.1 - Test for logging purposes."
+    "release_notes": "v0.0.2 - Test for debugging purposes."
 }
